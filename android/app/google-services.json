@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "67606741594",
+    "project_id": "wathsapp-8aa84",
+    "storage_bucket": "wathsapp-8aa84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67606741594:android:771ea02f6cadd1d8434e63",
+        "android_client_info": {
+          "package_name": "com.example.app_zapzap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtE2Ugy9-2sg-eMGvthMx2i6R9P9VN6Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
