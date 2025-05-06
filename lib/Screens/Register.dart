@@ -1,20 +1,21 @@
-import 'package:app_zapzap/Screens/Register.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _senha = TextEditingController();
+final TextEditingController _email = TextEditingController();
+final TextEditingController _senha = TextEditingController();
+final TextEditingController _nome = TextEditingController();
 
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.green),
       backgroundColor: Colors.green,
       body: Center(
         child: SingleChildScrollView(
@@ -22,8 +23,22 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("images/logo.png", height: 120),
+              Image.asset("images/usuario.png", height: 120),
               const SizedBox(height: 40),
+              TextFormField(
+                controller: _nome,
+
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person_2),
+                  labelText: "Nome",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
@@ -72,30 +87,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Não possui conta? ",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Register()),
-                      );
-                    },
-                    child: const Text(
-                      "Registre-se",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
