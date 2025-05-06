@@ -7,11 +7,40 @@ class Register extends StatefulWidget {
   State<Register> createState() => _RegisterState();
 }
 
-final TextEditingController _email = TextEditingController();
-final TextEditingController _senha = TextEditingController();
-final TextEditingController _nome = TextEditingController();
-
 class _RegisterState extends State<Register> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _senha = TextEditingController();
+  final TextEditingController _nome = TextEditingController();
+  String _mensagemErro = "";
+
+  void _validarCampors() {
+    String nome = _nome.text;
+    String email = _email.text;
+    String senha = _senha.text;
+
+    if (nome.isNotEmpty) {
+      if (email.isNotEmpty && email.contains("@")) {
+        if (senha.isNotEmpty) {
+          setState(() {
+            _mensagemErro = "";
+          });
+        } else {
+          setState(() {
+            _mensagemErro = "Preencha a senha";
+          });
+        }
+      } else {
+        setState(() {
+          _mensagemErro = "Preencha o email corretamente";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Preencha o nome";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,15 +107,16 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   onPressed: () {
-                    // lógica de login
+                    _validarCampors();
                   },
                   child: const Text(
-                    "Entrar",
+                    "Cadastrar",
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
+              Text(_mensagemErro, style: TextStyle(color: Colors.red)),
             ],
           ),
         ),
