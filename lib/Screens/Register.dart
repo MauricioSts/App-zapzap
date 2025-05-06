@@ -1,3 +1,6 @@
+import 'package:app_zapzap/Home.dart';
+import 'package:app_zapzap/models/Usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -23,6 +26,13 @@ class _RegisterState extends State<Register> {
         if (senha.isNotEmpty) {
           setState(() {
             _mensagemErro = "";
+
+            Usuario usuario = Usuario();
+            usuario.nome = nome;
+            usuario.email = email;
+            usuario.senha = senha;
+
+            _cadastrarUsuario(usuario);
           });
         } else {
           setState(() {
@@ -39,6 +49,23 @@ class _RegisterState extends State<Register> {
         _mensagemErro = "Preencha o nome";
       });
     }
+  }
+
+  void _cadastrarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth
+        .createUserWithEmailAndPassword(
+          email: usuario.email,
+          password: usuario.senha,
+        )
+        .then((firebaseUser) {
+         Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
+        })
+        .catchError((error) {
+          setState(() {
+            _mensagemErro = "ERRO AO CADASTRAR";
+          });
+        });
   }
 
   @override
