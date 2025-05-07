@@ -1,4 +1,7 @@
+import 'package:app_zapzap/Home.dart';
 import 'package:app_zapzap/Screens/Register.dart';
+import 'package:app_zapzap/models/Usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +14,41 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _senha = TextEditingController();
+  String _mensagemErro = "";
+  void _validarCampors() {
+    String email = _email.text;
+    String senha = _senha.text;
+
+    if (email.isNotEmpty && email.contains("@")) {
+      if (senha.isNotEmpty) {
+        setState(() {
+          _mensagemErro = "";
+
+          Usuario usuario = Usuario();
+
+          usuario.email = email;
+          usuario.senha = senha;
+
+          _logarUsuario(usuario);
+        });
+      } else {
+        setState(() {
+          _mensagemErro = "Preencha a senha";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Preencha o email corretamente";
+      });
+    }
+  }
+
+  _logarUsuario(Usuario usuario){
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signInWithEmailAndPassword(email: usuario.email, password: usuario.senha).then((firebaseUser){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +101,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                    // lógica de login
+                   _validarCampors();
                   },
                   child: const Text(
                     "Entrar",
@@ -96,6 +134,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
+              Center(child: Text(_mensagemErro)),
             ],
           ),
         ),
