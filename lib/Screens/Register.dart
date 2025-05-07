@@ -1,5 +1,6 @@
 import 'package:app_zapzap/Home.dart';
 import 'package:app_zapzap/models/Usuario.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,13 @@ class _RegisterState extends State<Register> {
           password: usuario.senha,
         )
         .then((firebaseUser) {
-         Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
+          FirebaseFirestore db = FirebaseFirestore.instance;
+          db.collection("usuarios").doc(firebaseUser.user!.uid).set(usuario.toMap());
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
         })
         .catchError((error) {
           setState(() {
