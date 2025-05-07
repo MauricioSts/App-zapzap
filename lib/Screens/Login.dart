@@ -43,11 +43,44 @@ class _LoginState extends State<Login> {
     }
   }
 
-  _logarUsuario(Usuario usuario){
+  _logarUsuario(Usuario usuario) {
     FirebaseAuth auth = FirebaseAuth.instance;
-    auth.signInWithEmailAndPassword(email: usuario.email, password: usuario.senha).then((firebaseUser){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
-    });
+    auth
+        .signInWithEmailAndPassword(
+          email: usuario.email,
+          password: usuario.senha,
+        )
+        .then((firebaseUser) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
+        })
+        .catchError((error) {
+          setState(() {
+            _mensagemErro = "Erro ao autenticar usuario";
+          });
+        });
+  }
+
+  Future _verificaUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? usuarioLogado = auth.currentUser;
+
+    if (usuarioLogado != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _verificaUsuarioLogado();
   }
 
   @override
@@ -101,7 +134,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                   _validarCampors();
+                    _validarCampors();
                   },
                   child: const Text(
                     "Entrar",
