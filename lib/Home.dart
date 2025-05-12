@@ -51,12 +51,29 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  List<String> itensMenu = ["Configurações", "logout"];
+
+  _escolhaMenuItem(String itemEscolhido) {
+    if (itemEscolhido == "logout") {
+      logOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_emailUser),
-        actions: [IconButton(onPressed: logOut, icon: Icon(Icons.logout))],
+        title: Text("zap"),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: _escolhaMenuItem,
+            itemBuilder: (context) {
+              return itensMenu.map((String item) {
+                return PopupMenuItem<String>(value: item, child: Text(item));
+              }).toList();
+            },
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [Tab(text: "Conversas"), Tab(text: "Contatos")],
