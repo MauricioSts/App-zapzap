@@ -1,6 +1,6 @@
 import 'package:app_zapzap/Screens/Contatos.dart';
 import 'package:app_zapzap/Screens/Conversas.dart';
-import 'package:app_zapzap/Screens/Login.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -51,9 +51,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   List<String> itensMenu = ["Configurações", "logout"];
 
   _escolhaMenuItem(String itemEscolhido) {
-    if (itemEscolhido == "logout") {
-      logOut();
-    }
+   switch (itemEscolhido){
+    case "logout":
+    logOut();
+
+    case "Configurações":
+    Navigator.pushNamed(context, "/config");
+   }
   }
 
   @override

@@ -1,4 +1,4 @@
-import 'package:app_zapzap/Home.dart';
+
 import 'package:app_zapzap/Screens/Register.dart';
 import 'package:app_zapzap/models/Usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';

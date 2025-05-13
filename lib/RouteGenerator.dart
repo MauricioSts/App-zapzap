@@ -1,4 +1,5 @@
 import 'package:app_zapzap/Home.dart';
+import 'package:app_zapzap/Screens/Config.dart';
 import 'package:app_zapzap/Screens/Login.dart';
 import 'package:app_zapzap/Screens/Register.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Register());
       case "/home":
         return MaterialPageRoute(builder: (_) => Home());
+      case "/config":
+        return MaterialPageRoute(builder: (_) => Config());
       default:
         return _erroRota(); // <- Aqui foi corrigido
     }
