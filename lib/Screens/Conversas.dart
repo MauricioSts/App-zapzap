@@ -2,6 +2,8 @@ import 'package:app_zapzap/models/Conversa.dart';
 import 'package:flutter/material.dart';
 
 class Conversas extends StatefulWidget {
+  const Conversas({super.key});
+
   @override
   ConversasState createState() => ConversasState();
 }

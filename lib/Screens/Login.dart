@@ -51,10 +51,7 @@ class _LoginState extends State<Login> {
           password: usuario.senha,
         )
         .then((firebaseUser) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-          );
+          Navigator.pushReplacementNamed(context, "/home");
         })
         .catchError((error) {
           setState(() {
@@ -69,10 +66,7 @@ class _LoginState extends State<Login> {
 
     if (usuarioLogado != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
+        Navigator.pushReplacementNamed(context, "/home");
       });
     }
   }

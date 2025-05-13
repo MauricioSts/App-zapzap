@@ -61,12 +61,12 @@ class _RegisterState extends State<Register> {
         )
         .then((firebaseUser) {
           FirebaseFirestore db = FirebaseFirestore.instance;
-          db.collection("usuarios").doc(firebaseUser.user!.uid).set(usuario.toMap());
+          db
+              .collection("usuarios")
+              .doc(firebaseUser.user!.uid)
+              .set(usuario.toMap());
 
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-          );
+          Navigator.pushNamedAndRemoveUntil(context, "/home", (_) => false);
         })
         .catchError((error) {
           setState(() {
